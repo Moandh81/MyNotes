@@ -58,8 +58,56 @@ We will run the following command in the terminal in order to create a pod
 with the preceding configuration :
 
    ```
-
 kubectl create -f pod1.yaml
-
    ```
+
+## Create a pod in a different namespace
+
+
+Kubernetes supports namespaces to create multiple virtual clusters within the same
+physical cluster. 
+
+We may need to use namespaces if we want to provide separate
+environments to our different teams working on the same cluster.
+
+Namespaces also help in scoping the object names. For example, you cannot have two pods with the
+same name within the same namespace.
+
+However, it's possible to have two pods with
+the same name in two different namespaces.
+
+
+
+### Get the list of the namespaces
+
+```
+
+kubectl get ns
+
+```
+
+### Create a pod in a different namespce from the CLI
+
+```
+
+kubectl --namespace kube-public create -f pod1.yaml
+
+```
+
+### Create a pod in a different namespce from the configuration file
+
+```
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: first-pod
+  namespace: kube-public
+
+spec:
+  containers:
+  - name: my-first-container
+    image: nginx
+
+```
 
