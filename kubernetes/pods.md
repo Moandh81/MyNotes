@@ -57,3 +57,9 @@ spec:
 We will run the following command in the terminal in order to create a pod
 with the preceding configuration :
 
+   ```
+
+kubectl create -f pod1.yaml
+
+   ```
+
