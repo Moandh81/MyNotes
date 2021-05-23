@@ -156,3 +156,73 @@ spec:
         - containerPort: 80
 
 ```
+
+## Create a pod with  resource requirements
+
+```
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: resource-requirements-pod
+spec:
+  containers:
+    - name: container-with-resource-requirements
+      image: nginx
+      resources:
+        limits:
+          memory: "128M"
+          cpu: "1"
+        requests:
+          memory: "64M"
+          cpu: "0.5"
+
+```
+
+In this YAML file, we define the minimum memory requirement for the container
+to be 64 MB and the maximum memory that the container can occupy to be
+128 MB. If the container tries to allocate more than 128 MB of memory, it will be
+killed with a status of OOMKilled .
+
+The minimum CPU requirement for CPU is 0.5 (which can also be understood as
+500 milli-CPUs and can be written as 500m instead of 0.5 ) and the container will
+only be allowed to use a maximum of 1 CPU unit.
+
+
+## Lifecle of a Pod
+
+**Pending** : This means that the pod has been submitted to the cluster, but the
+controller hasn't created all its containers yet. It may be downloading images or
+waiting for the pod to be scheduled on one of the cluster nodes.
+
+
+**Running** :  This state means that the pod has been assigned to one of the cluster
+nodes and at least one of the containers is either running or is in the process of
+starting up.
+
+
+**Succeeded** : This state means that the pod has run, and all of its containers
+have been terminated with success.
+
+
+**Failed** : This state means the pod has run and at least one of the containers
+has terminated with a non-zero exit code, that is, it has failed to execute
+its commands.
+
+
+**Unknown** : This means that the state of the pod could not be found. This may be
+because of the inability of the controller to connect with the node that the pod
+was assigned to.
+
+
+## Probes / Health Checks
+
+
+A probe is a health check that can be configured to check the health of the containers
+running in a pod. A probe can be used to determine whether a container is running or
+ready to receive requests. A probe may return the following results:
+
+- **Success** : The container passed the health check.
+- **Failure** : The container failed the health check.
+- **Unknown** : The health check failed for unknown reasons.
