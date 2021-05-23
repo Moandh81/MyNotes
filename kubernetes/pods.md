@@ -111,3 +111,9 @@ spec:
 
 ```
 
+## Change the namespace for all subsequent kubectl commands :
+
+```
+kubectl config set-context $(kubectl config current-context) --namespace kube-public
+
+```
