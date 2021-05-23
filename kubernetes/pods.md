@@ -33,3 +33,27 @@ We can break down the configuration of a pod into four main components:
     we're creating.
   - **spec** : Specification of our pod, such as container name, image name, volumes,
     and resource requests.
+    
+   
+   
+   ### Example :
+   
+   We will create a single file pod1.yaml with the following content :
+   
+   
+   ```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: first-pod
+
+spec:
+  containers:
+  - name: my-first-container
+    image: nginx
+   
+   ```
+
+We will run the following command in the terminal in order to create a pod
+with the preceding configuration :
+
