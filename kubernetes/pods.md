@@ -117,3 +117,42 @@ spec:
 kubectl config set-context $(kubectl config current-context) --namespace kube-public
 
 ```
+
+## Define a pod that runs a container with a command :
+
+
+```
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: command-pod
+spec:
+  containers:
+  - name: container-with-command
+    image: ubuntu
+    command:
+    - /bin/bash
+    - -ec
+    - while :; do echo '.'; sleep 5; done
+
+```
+
+
+## Define a port that exposes a port :
+
+
+```
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: port-exposed-pod
+spec:
+  containers:
+    - name: container-with-exposed-port
+      image: nginx
+      ports:
+        - containerPort: 80
+
+```
