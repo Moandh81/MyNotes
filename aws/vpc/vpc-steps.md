@@ -234,3 +234,82 @@ Define NACL Rules :
 
 Rules have numbers : 1-32766
  and higher precedence with lowest number
+
+
+# VPC peering 
+
+Allow to connect two VPC privately using AWS network
+
+Makes them behave as if they were in the same network
+
+Must not have overlapping ip addresses 
+
+VPC peering connection is not transitive
+
+We must update route table **in each vpc subnet** to ensure instances can communicate
+
+VPC peering can work inter-region and cross-account
+
+We can reference a security group of a peered vpc
+
+
+Route tables must be modified on both subnets in order
+to get the connexion working 
+
+
+# VPC Endpoints :
+
+VPC Endpoint is meant to access AWS Services
+(Dynamo DB, S3 buckets, Cloudwatch) from private vpc
+without going through the public www network
+
+They scale horizontally and are redundant 
+
+They remove the need of IGW, NAT, etc to access AWS services
+
+2 types of VPC endpoints :
+
+Interface :provisions an ENI (private ip address) as an entry point (must attach security group) : most AWS services
+
+
+Gateway : provisions a target and must be used in a route table : S3 and Dynamo DB 
+
+In case of issues : 
+check DNS setting Resolution in your vpc 
+check route tables 
+
+Important :
+After we configure vpc endpoint 
+
+aws s3 ls does not work 
+
+we have append the region in order to get access to the bucket 
+
+by default aws cli is not configured on the instance
+and therefore we have to add to add the region as an argument: 
+
+
+aws s3 ls --region eu-west-3
+
+
+
+# VPC Flow logs and Athena
+
+3 types of flow logs :
+
+VPC flow logs
+Subnet flow logs
+Elastic network interface flow logs
+
+
+Helps to monitor & troubleshoot connectivity issue 
+
+Flow logs data can go to S3  or cloudwatch logs 
+
+Captures network information from aws managed interfaces too : ELB, RDS, Redshift , Workspaces
+
+
+
+
+
+
